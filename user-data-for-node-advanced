@@ -1,0 +1,55 @@
+#!/bin/bash -xe
+
+## Code Deploy Agent Bootstrap Script with LAMP ##
+exec > >(tee /var/log/user-data.log|logger -t user-data -s 2>/dev/console) 2>&1
+REGION=ap-south-1
+yum update -y
+sleep 10
+#Basic Installation
+yum install -y git awslogs-1.1.4 curl unzip wget jq python3-3.7.6-1.amzn2.0.1 python3-pip-9.0.3
+sleep 10
+amazon-linux-extras install ruby2.6 -y
+#cd /tmp/
+
+#Python & PIP
+pip3 install -Iv --upgrade pip==20.2.1
+pip3 install --user boto3
+pip3 install --user pycryptodome
+
+#Code Deploy Agent
+wget https://aws-codedeploy-${REGION}.s3.amazonaws.com/latest/install
+chmod +x ./install
+./install auto
+service codedeploy-agent start
+sudo yum info codedeploy-agent #version check
+
+# # Install the AWS CodeDeploy Agent (2nd Method)
+# amazon-linux-extras install ruby2.6 -y
+# cd /home/ec2-user/
+# wget https://aws-codedeploy-${REGION}.s3.amazonaws.com/releases/codedeploy-agent-1.1.2-1855.noarch.rpm
+# yum -y install codedeploy-agent-1.1.2-1855.noarch.rpm
+
+#AWS CLI2
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+./aws/install
+
+#AWS Logs for code deploy
+yum install -y awslogs
+wget https://s3.amazonaws.com/aws-codedeploy-us-east-1/cloudwatch/codedeploy_logs.conf
+mkdir -p /var/awslogs/etc/config
+cp codedeploy_logs.conf /var/awslogs/etc/config/
+sed -i "s/us-east-1/$REGION/g" /etc/awslogs/awscli.conf
+# Start the service logs
+systemctl start awslogsd
+systemctl enable awslogsd.service
+
+#Node Installation with yum (working)
+curl --silent --location https://rpm.nodesource.com/setup_12.x | bash -
+yum -y install nodejs
+npm i cross-env -g
+
+#Afer login SSH and  you want to install nvm you can use below command.
+#curl https://raw.githubusercontent.com/creationix/nvm/v0.36.0/install.sh | bash
+#close the terminal and open again
+#source ~/.bashrc

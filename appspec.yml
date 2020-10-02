@@ -3,12 +3,16 @@ os: linux
 files:
 - source: /app.js
   destination: /home/ec2-user/node-website
+  overwrite: yes
 - source: /package.json
   destination: /home/ec2-user/node-website
+  overwrite: yes
 - source: /public/
   destination: /home/ec2-user/node-website/public
+  overwrite: yes
 - source: /scripts/requirements.txt
   destination: /home/ec2-user/scripts
+  overwrite: yes
 hooks:
   AfterInstall:
   - location: scripts/install_python3
