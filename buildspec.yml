@@ -36,3 +36,4 @@ artifacts:
     - node_modules/**/*
     - public/**/*
     - template-configuration.json
+    

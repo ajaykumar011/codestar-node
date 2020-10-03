@@ -36,6 +36,6 @@ hooks:
     timeout: 300
     runas: root
   AfterAllowTraffic:
-  - localtion: scripts/remove_html
+  - location: scripts/remove_html
     timeout: 100
     runas: root
