@@ -35,7 +35,4 @@ hooks:
   - location: scripts/stop_server
     timeout: 300
     runas: root
-  AfterAllowTraffic:
-  - location: scripts/remove_html
-    timeout: 100
-    runas: root
+

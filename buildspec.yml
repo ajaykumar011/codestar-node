@@ -36,4 +36,5 @@ artifacts:
     - node_modules/**/*
     - public/**/*
     - template-configuration.json
+    - healthcheck.html
     
