@@ -9,7 +9,6 @@ yum -y install httpd-2.4.41
 # Install Ruby
 amazon-linux-extras install ruby2.6 -y
 # Start the service
-echo "Hello world" > /var/www/html/index.html
 service httpd start
 
 # Install the AWS CodeDeploy Agent
