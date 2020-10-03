@@ -1,6 +1,14 @@
 Welcome to the AWS CodeStar sample web application
 ==================================================
 
+In Code Deployment. Do not use ALB for the first deployment. Once software and other packages are installed, you can further use this. But this is not va lid solutions, in next deployment again it creates problem.
+
+It is better to create an AMI from this working instance and in the userdata section write code to restart the services This is not described in this example here..
+
+
+
+
+
 This sample code helps get you started with a simple Node.js web application
 deployed by AWS CodeDeploy and AWS CloudFormation to an Amazon EC2 instance.
 
