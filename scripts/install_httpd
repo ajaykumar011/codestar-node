@@ -3,6 +3,9 @@
 # Install apache
 yum -y install httpd-2.4.41
 
+#Remove index.html file in /var/www/html/index.html if exist
+[ -f /var/www/html/index.html ] && rm -rf /var/www/html/index.html
+
 # Set up proxy for Node server
 cat <<EOT >> /etc/httpd/conf/httpd.conf
 LoadModule proxy_module modules/mod_proxy.so

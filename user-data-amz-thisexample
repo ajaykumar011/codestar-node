@@ -3,8 +3,15 @@
 exec > >(tee /var/log/user-data.log|logger -t user-data -s 2>/dev/console) 2>&1
 REGION=ap-south-1
 
+
+# Install apache
+yum -y install httpd-2.4.41
 # Install Ruby
 amazon-linux-extras install ruby2.6 -y
+# Start the service
+echo "Hello world" > /var/www/html/index.html
+service httpd start
+
 # Install the AWS CodeDeploy Agent
 cd /home/ec2-user/
 wget https://aws-codedeploy-${REGION}.s3.amazonaws.com/releases/codedeploy-agent-1.1.2-1855.noarch.rpm
